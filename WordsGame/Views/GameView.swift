@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GameView: View {
     
+    var viewModel: GameViewModel
+    
     @State private var word = ""
     var body: some View {
         VStack (spacing: 16) {
@@ -28,16 +30,16 @@ struct GameView: View {
                 Spacer()
             }
             
-            Text("Хоровод")
-                .font(.custom("AvenirNext-Bold", size: 36))
+            Text(viewModel.word)
+                .font(.custom("AvenirNext-Bold", size: 30))
                 .foregroundColor(.white)
             
             HStack (spacing: 12) {
                 VStack{
-                    Text("0")
+                    Text("\(viewModel.player1.score)")
                         .font(.custom("AvenirNext-Bold", size: 60))
                         .foregroundColor(.white)
-                    Text("Вася")
+                    Text(viewModel.player1.name)
                         .font(.custom("AvenirNext-Bold", size: 24))
                         .foregroundColor(.white)
                 }.padding(20)
@@ -47,10 +49,10 @@ struct GameView: View {
                     .cornerRadius(26)
                     .shadow(color: .blue, radius: 4, x: 0, y: 0)
                 VStack{
-                    Text("0")
+                    Text("\(viewModel.player2.score)")
                         .font(.custom("AvenirNext-Bold", size: 60))
                         .foregroundColor(.white)
-                    Text("Петя")
+                    Text(viewModel.player2.name)
                         .font(.custom("AvenirNext-Bold", size: 24))
                         .foregroundColor(.white)
                 }.padding(20)
@@ -63,7 +65,10 @@ struct GameView: View {
             WordsTextField(word: $word, placeholder: "Ваше слово...")
                 .padding(.horizontal)
             Button {
-                print("Готово")
+                let score = viewModel.check(word: word)
+                if score > 1 {
+                    self.word = ""
+                }
             } label: {
                 Text("Готово")
                     .padding(12)
@@ -87,5 +92,5 @@ struct GameView: View {
 }
 
 #Preview {
-    GameView()
+    GameView(viewModel: GameViewModel(player1: Player(name: "вася"), player2: Player(name: "петя"), word: "хоровод"))
 }
