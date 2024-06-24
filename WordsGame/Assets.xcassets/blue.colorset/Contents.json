@@ -4,10 +4,10 @@
       "color" : {
         "color-space" : "display-p3",
         "components" : {
-          "alpha" : "0.410",
-          "blue" : "0.877",
-          "green" : "0.678",
-          "red" : "0.770"
+          "alpha" : "0.650",
+          "blue" : "0.744",
+          "green" : "0.129",
+          "red" : "0.315"
         }
       },
       "idiom" : "universal"
@@ -16,8 +16,5 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "localizable" : true
   }
 }
