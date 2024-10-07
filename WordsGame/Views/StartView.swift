@@ -13,7 +13,7 @@ struct StartView: View {
     @State var playerTwo = ""
     
     @State var isShowedGame = false
-    
+    @State var isAlertPresented = false
     var body: some View {
         
         VStack {
@@ -33,7 +33,12 @@ struct StartView: View {
             
             
             Button{
-                isShowedGame.toggle()
+                if bigWord.count > 7 {
+                isShowedGame.toggle()            
+                }else{
+                    self.isAlertPresented.toggle()
+                }
+              
             } label: {
                 Text("Старт")
                     .font(.custom("AvenirNext-Bold", size: 30))
@@ -46,11 +51,17 @@ struct StartView: View {
                 
             }
             
-        }.background(Image("background"))
+        }
+            .background(Image("background"))
+            .alert("Длинное слово слишком короткое", isPresented: $isAlertPresented, actions: {
+                Text("ОК")
+            })
             .fullScreenCover(isPresented: $isShowedGame) {
+                let name1 = playerOne == "" ? "Игрок 1" : playerOne
+                let name2 = playerTwo == "" ? "Игрок 2" : playerTwo
                 
-                let player1 = Player(name: self.playerOne)
-                let player2 = Player(name: self.playerTwo)
+                let player1 = Player(name: name1)
+                let player2 = Player(name: name2)
                 let gameViewModel = GameViewModel(player1: player1, player2: player2, word: bigWord)
                 GameView(viewModel: gameViewModel)
             }
